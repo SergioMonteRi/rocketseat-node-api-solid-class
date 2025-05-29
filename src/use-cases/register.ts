@@ -1,5 +1,7 @@
 import { hash } from 'bcryptjs'
 
+import { UsersRepository } from '@/repositories'
+
 interface RegisterUseCaseRequest {
   name: string
   email: string
@@ -7,7 +9,7 @@ interface RegisterUseCaseRequest {
 }
 
 export class RegisterUseCase {
-  constructor(private usersRepository: any) {
+  constructor(private usersRepository: UsersRepository) {
     this.usersRepository = usersRepository
   }
 
