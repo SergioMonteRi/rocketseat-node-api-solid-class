@@ -3,7 +3,7 @@ import type { User } from '@prisma/client'
 
 import { UsersRepository } from '@/repositories'
 
-import { UserAlreadyExistsError } from './errors'
+import { UserAlreadyExistsError } from '../errors'
 
 interface RegisterUseCaseRequest {
   name: string
