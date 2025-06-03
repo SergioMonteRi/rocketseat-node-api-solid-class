@@ -29,8 +29,6 @@ export class ValidateCheckInUseCase {
       'minutes',
     )
 
-    console.log(distanceInMinutesFromCheckInCreation)
-
     if (
       distanceInMinutesFromCheckInCreation > MAX_MINUTES_FOR_CHECK_IN_VALIDATION
     ) {

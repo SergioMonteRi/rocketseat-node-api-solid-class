@@ -5,12 +5,13 @@ import { CheckInUseCase } from '.'
 import {
   InMemoryGymsRepository,
   InMemoryCheckInsRepository,
+  GymsRepository,
 } from '@/repositories'
 
 import { MaxCheckInDistanceError, MaxNumberOfCheckInsError } from '../../errors'
 
 let checkInsRepository: InMemoryCheckInsRepository
-let gymsRepository: InMemoryGymsRepository
+let gymsRepository: GymsRepository
 let sut: CheckInUseCase
 
 describe('Check in use case', () => {
