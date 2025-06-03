@@ -10,7 +10,7 @@ import {
   ResourceNotFoundError,
   MaxCheckInDistanceError,
   MaxNumberOfCheckInsError,
-} from '../errors'
+} from '../../errors'
 
 interface CheckInUseCaseRequest {
   userId: string

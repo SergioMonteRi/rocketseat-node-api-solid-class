@@ -7,7 +7,7 @@ import {
   InMemoryCheckInsRepository,
 } from '@/repositories'
 
-import { MaxCheckInDistanceError, MaxNumberOfCheckInsError } from '../errors'
+import { MaxCheckInDistanceError, MaxNumberOfCheckInsError } from '../../errors'
 
 let checkInsRepository: InMemoryCheckInsRepository
 let gymsRepository: InMemoryGymsRepository
