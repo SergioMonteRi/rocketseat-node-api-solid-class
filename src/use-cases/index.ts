@@ -1,4 +1,4 @@
 export * from './authenticate'
 export * from './errors'
-export * from './register'
+export * from './user/register-user'
 export * from './factories'

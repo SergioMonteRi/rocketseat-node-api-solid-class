@@ -3,7 +3,7 @@ import { expect, describe, it, beforeEach } from 'vitest'
 
 import { RegisterUseCase } from '.'
 
-import { UserAlreadyExistsError } from '../errors'
+import { UserAlreadyExistsError } from '@/use-cases'
 
 import { InMemoryUsersRepository } from '@/repositories'
 

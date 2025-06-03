@@ -3,15 +3,15 @@ import type { User } from '@prisma/client'
 
 import { UsersRepository } from '@/repositories'
 
-import { UserAlreadyExistsError } from '../errors'
+import { UserAlreadyExistsError } from '../../errors'
 
-interface RegisterUseCaseRequest {
+interface RegisterUserUseCaseRequest {
   name: string
   email: string
   password: string
 }
 
-interface RegisterUseCaseResponse {
+interface RegisterUserUseCaseResponse {
   user: User
 }
 
@@ -21,8 +21,8 @@ export class RegisterUseCase {
   }
 
   async execute(
-    params: RegisterUseCaseRequest,
-  ): Promise<RegisterUseCaseResponse> {
+    params: RegisterUserUseCaseRequest,
+  ): Promise<RegisterUserUseCaseResponse> {
     const { name, email, password } = params
 
     const password_hash = await hash(password, 6)

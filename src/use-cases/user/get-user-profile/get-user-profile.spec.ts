@@ -3,7 +3,7 @@ import { expect, describe, it, beforeEach } from 'vitest'
 
 import { GetUserProfileUseCase } from '.'
 
-import { ResourceNotFoundError } from '../errors'
+import { ResourceNotFoundError } from '@/use-cases'
 
 import { InMemoryUsersRepository } from '@/repositories'
 
