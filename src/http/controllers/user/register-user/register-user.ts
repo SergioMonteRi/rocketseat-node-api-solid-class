@@ -3,7 +3,10 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 
 import { makeRegisterUseCase, UserAlreadyExistsError } from '@/use-cases'
 
-export async function register(request: FastifyRequest, reply: FastifyReply) {
+export async function registerUser(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
   const createUserBodySchema = z.object({
     name: z.string(),
     email: z.string().email(),

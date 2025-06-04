@@ -2,7 +2,10 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 
 import { makeGetUserProfileUseCase } from '@/use-cases'
 
-export async function profile(request: FastifyRequest, reply: FastifyReply) {
+export async function getUserProfile(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
   const userId = request.user.sub
 
   try {
