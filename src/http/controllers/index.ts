@@ -1,3 +1,3 @@
-export * from './user/authenticate-user'
-export * from './gyms'
+export * from './gym'
 export * from './user'
+export * from './check-in'
