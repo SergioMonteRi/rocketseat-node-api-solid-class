@@ -28,3 +28,7 @@ jobs:
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
+        with:
+          name: use-cases-test-results
+          path: src/use-cases/**/*.spec.ts
+          retention-days: 7
