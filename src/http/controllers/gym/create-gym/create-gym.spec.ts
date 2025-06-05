@@ -3,6 +3,8 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
 import { app } from '@/app'
 
+import { createAndAuthenticateUser } from '@/utils'
+
 describe('Create Gym (E2E)', () => {
   beforeAll(async () => {
     await app.ready()
@@ -13,18 +15,7 @@ describe('Create Gym (E2E)', () => {
   })
 
   it('should be able to create a new gym', async () => {
-    await request(app.server).post('/users').send({
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      password: '123456',
-    })
-
-    const authResponse = await request(app.server).post('/sessions').send({
-      email: 'john.doe@example.com',
-      password: '123456',
-    })
-
-    const { token } = authResponse.body
+    const { token } = await createAndAuthenticateUser(app)
 
     const response = await request(app.server)
       .post('/gyms')
@@ -33,8 +24,8 @@ describe('Create Gym (E2E)', () => {
         title: 'Gym 1',
         description: 'Gym 1 description',
         phone: '1234567890',
-        latitude: 12.345678,
-        longitude: 12.345678,
+        latitude: -23.5535469,
+        longitude: -46.2121275,
       })
 
     expect(response.statusCode).toEqual(201)

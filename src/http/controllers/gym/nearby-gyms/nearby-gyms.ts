@@ -5,7 +5,7 @@ import { makeFetchNearbyGymsUseCase } from '@/use-cases'
 
 export async function nearbyGyms(request: FastifyRequest, reply: FastifyReply) {
   const nearbyGymsQuerySchema = z.object({
-    latitude: z.coerce.number().refine(
+    userLatitude: z.coerce.number().refine(
       (value) => {
         return Math.abs(value) <= 90
       },
@@ -13,7 +13,7 @@ export async function nearbyGyms(request: FastifyRequest, reply: FastifyReply) {
         message: 'Latitude must be between -90 and 90 degrees',
       },
     ),
-    longitude: z.coerce.number().refine(
+    userLongitude: z.coerce.number().refine(
       (value) => {
         return Math.abs(value) <= 180
       },
@@ -23,13 +23,15 @@ export async function nearbyGyms(request: FastifyRequest, reply: FastifyReply) {
     ),
   })
 
-  const { latitude, longitude } = nearbyGymsQuerySchema.parse(request.query)
+  const { userLatitude, userLongitude } = nearbyGymsQuerySchema.parse(
+    request.query,
+  )
 
   const nearbyGymsUseCase = makeFetchNearbyGymsUseCase()
 
   const { gyms } = await nearbyGymsUseCase.execute({
-    userLatitude: latitude,
-    userLongitude: longitude,
+    userLatitude,
+    userLongitude,
   })
 
   return reply.status(200).send({

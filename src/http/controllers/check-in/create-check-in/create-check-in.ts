@@ -12,7 +12,7 @@ export async function createCheckIn(
   })
 
   const createCheckInBodySchema = z.object({
-    userLatitude: z.number().refine(
+    userLatitude: z.coerce.number().refine(
       (value) => {
         return Math.abs(value) <= 90
       },
@@ -20,7 +20,7 @@ export async function createCheckIn(
         message: 'Latitude must be between -90 and 90 degrees',
       },
     ),
-    userLongitude: z.number().refine(
+    userLongitude: z.coerce.number().refine(
       (value) => {
         return Math.abs(value) <= 180
       },

@@ -2,8 +2,9 @@ import request from 'supertest'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
 import { app } from '@/app'
+import { createAndAuthenticateUser } from '@/utils'
 
-describe('Create Gym (E2E)', () => {
+describe('Search Gyms (E2E)', () => {
   beforeAll(async () => {
     await app.ready()
   })
@@ -12,31 +13,40 @@ describe('Create Gym (E2E)', () => {
     await app.close()
   })
 
-  it('should be able to create a new gym', async () => {
-    await request(app.server).post('/users').send({
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      password: '123456',
-    })
+  it('should be able to search for gyms', async () => {
+    const { token } = await createAndAuthenticateUser(app)
 
-    const authResponse = await request(app.server).post('/sessions').send({
-      email: 'john.doe@example.com',
-      password: '123456',
-    })
-
-    const { token } = authResponse.body
-
-    const response = await request(app.server)
+    await request(app.server)
       .post('/gyms')
       .set('Authorization', `Bearer ${token}`)
       .send({
-        title: 'Gym 1',
-        description: 'Gym 1 description',
+        title: 'JavaScript Gym',
+        description: 'JavaScript Gym description',
         phone: '1234567890',
-        latitude: 12.345678,
-        longitude: 12.345678,
+        latitude: -23.5535469,
+        longitude: -46.2121275,
       })
 
-    expect(response.statusCode).toEqual(201)
+    await request(app.server)
+      .post('/gyms')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        title: 'TypeScript Gym',
+        description: 'TypeScript Gym description',
+        phone: '1234567890',
+        latitude: -23.5535469,
+        longitude: -46.2121275,
+      })
+
+    const response = await request(app.server)
+      .get('/gyms/search')
+      .query({
+        query: 'TypeScript',
+      })
+      .set('Authorization', `Bearer ${token}`)
+
+    expect(response.statusCode).toEqual(200)
+    expect(response.body.gyms).toHaveLength(1)
+    expect(response.body.gyms[0].title).toEqual('TypeScript Gym')
   })
 })
