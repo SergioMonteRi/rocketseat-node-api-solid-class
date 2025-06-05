@@ -12,7 +12,6 @@ jobs:
 
     services:
       api-solid-pg:
-        name: api-solid-pg
         image: bitnami/postgresql:latest
         env:
           POSTGRESQL_USERNAME: docker
