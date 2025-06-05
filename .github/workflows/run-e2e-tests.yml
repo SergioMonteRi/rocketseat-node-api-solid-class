@@ -1,0 +1,45 @@
+name: Run E2E Tests
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  run-e2e-tests:
+    name: Run E2E Tests
+    runs-on: ubuntu-latest
+
+    services:
+      api-solid-pg:
+        name: api-solid-pg
+        image: bitnami/postgresql:latest
+        environment:
+          - POSTGRESQL_USERNAME=docker
+          - POSTGRESQL_PASSWORD=docker
+          - POSTGRESQL_DATABASE=apisolid
+         ports:
+          - 5432:5432
+
+    env:
+      NODE_ENV: test
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      DATABASE_URL: "postgresql://docker:docker@localhost:5432/apisolid?schema=public"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - run: npm ci
+
+      - run: npm run test:e2e
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-test-results
+          path: src/e2e/**/*.spec.ts
