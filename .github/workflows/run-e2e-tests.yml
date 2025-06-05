@@ -14,7 +14,7 @@ jobs:
       api-solid-pg:
         name: api-solid-pg
         image: bitnami/postgresql:latest
-        environment:
+        env:
           - POSTGRESQL_USERNAME=docker
           - POSTGRESQL_PASSWORD=docker
           - POSTGRESQL_DATABASE=apisolid
