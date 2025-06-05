@@ -3,7 +3,7 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 
 import { InvalidCredentialsError, makeAuthenticateUseCase } from '@/use-cases'
 
-export async function authenticate(
+export async function authenticateUser(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {

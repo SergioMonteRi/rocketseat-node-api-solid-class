@@ -1,2 +1,4 @@
 export * from './register-user'
 export * from './get-user-profile'
+export * from './user-routes'
+export * from './authenticate-user'
